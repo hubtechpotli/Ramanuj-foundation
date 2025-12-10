@@ -5,6 +5,10 @@ import { headers } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json({ error: 'Stripe is not configured' }, { status: 501 })
+    }
+
     const body = await request.text()
     const signature = (await headers()).get('stripe-signature')
 

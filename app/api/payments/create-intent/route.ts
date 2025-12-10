@@ -4,6 +4,10 @@ import { createServerClient } from '@/lib/supabase/server'
 
 export async function POST(request: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json({ error: 'Stripe is not configured' }, { status: 501 })
+    }
+
     const { donationId, amount, email, name } = await request.json()
 
     if (!donationId || !amount) {

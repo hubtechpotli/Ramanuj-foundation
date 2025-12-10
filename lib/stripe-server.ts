@@ -1,12 +1,9 @@
 import Stripe from 'stripe'
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY!
+// Gracefully handle missing key so build doesn't fail when Stripe isn't configured
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
 
-if (!stripeSecretKey) {
-  throw new Error('Missing Stripe secret key')
-}
-
-export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2024-12-18.acacia',
-})
+export const stripe = stripeSecretKey
+  ? new Stripe(stripeSecretKey, { apiVersion: '2024-12-18.acacia' })
+  : null
 
