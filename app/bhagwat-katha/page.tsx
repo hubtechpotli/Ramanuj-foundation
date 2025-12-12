@@ -74,6 +74,25 @@ export default function BhagwatKathaPage() {
         </div>
       </section>
 
+      {/* Gallery Section - Another Folder Image */}
+      <section className="w-full py-0 bg-background">
+        <div className="w-full">
+          <ScrollAnimation direction="up" delay={0}>
+            <div className="relative w-full h-auto">
+              <Image
+                src="/another folder/image1.png"
+                alt="Bhagwat Katha Gallery Image"
+                width={1920}
+                height={1080}
+                className="w-full h-auto object-contain"
+                priority
+                sizes="100vw"
+              />
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* About Bhagwat Katha */}
       <section className="py-8 md:py-12 lg:py-16 bg-background">
         <div className="container mx-auto px-4">
