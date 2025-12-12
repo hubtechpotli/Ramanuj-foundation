@@ -52,6 +52,25 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Gallery Section - Another Folder Images */}
+      <section className="w-full py-0 bg-background">
+        <div className="w-full">
+          <ScrollAnimation direction="up" delay={0}>
+            <div className="relative w-full h-auto">
+              <Image
+                src="/another folder/image.png"
+                alt="Gallery Image"
+                width={1920}
+                height={1080}
+                className="w-full h-auto object-contain"
+                priority
+                sizes="100vw"
+              />
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* Vision & Mission */}
       <section className="py-8 md:py-12 lg:py-16 bg-muted">
         <div className="container mx-auto px-4">
