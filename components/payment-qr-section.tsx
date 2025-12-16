@@ -41,33 +41,48 @@ export function PaymentQRSection() {
     }
   }
 
+  const whatsappMessage = encodeURIComponent(
+    `नमस्ते 🙏\n\nमैंने रामानुज सेवा फाउंडेशन को दान किया है। कृपया मुझे receipt भेजें।\n\nधन्यवाद!`
+  )
+
   return (
-    <div className="space-y-6">
-      {/* QR Code Section */}
-      <Card className="border-2 border-primary/20">
-        <CardHeader className="p-4 md:p-6">
-          <CardTitle className="text-lg md:text-xl lg:text-2xl text-center text-foreground">
-            Scan QR Code to Donate
+    <div className="space-y-4 md:space-y-6">
+      {/* QR Code Section - Prominent */}
+      <Card className="border-2 border-primary/30 shadow-2xl">
+        <CardHeader className="p-4 md:p-6 bg-gradient-to-r from-primary/10 to-accent/5">
+          <CardTitle className="text-xl md:text-2xl lg:text-3xl text-center text-foreground font-bold">
+            📱 QR Code से दान करें
           </CardTitle>
-          <p className="text-center text-xs md:text-sm text-muted-foreground mt-1 md:mt-2">
-            जय गुरुदेव !! गो सेवा ही, गोपाल सेवा है।
+          <p className="text-center text-sm md:text-base text-primary font-semibold mt-2">
+            जय गुरुदेव !! गो सेवा ही, गोपाल सेवा है। 🙏
           </p>
         </CardHeader>
         <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6">
-          <div className="flex justify-center">
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-lg overflow-hidden shadow-xl border-2 md:border-4 border-primary/20">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl border-4 border-primary/30 bg-white p-3">
               <Image
                 src="/Payment/WhatsApp Image 2025-12-09 at 15.32.00_c0b88593.jpg"
                 alt="Payment QR Code"
                 fill
-                className="object-contain bg-white p-2"
+                className="object-contain"
               />
             </div>
+            
+            {/* Quick WhatsApp Share Button */}
+            <a
+              href={`https://wa.me/919053212446?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full max-w-md inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white text-sm md:text-base px-6 py-3 md:px-8 md:py-4 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
+              Payment Screenshot Share करें - Receipt के लिए
+            </a>
           </div>
           
-          <div className="bg-primary/5 rounded-lg p-3 md:p-4 text-center">
-            <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-2">
-              गौ मात्र मात्र माता ही नहीं, अपितु सम्पूर्ण मनोवृत्तियों की दाता भी है।
+          <div className="bg-primary/5 rounded-lg p-3 md:p-4 text-center border border-primary/20">
+            <p className="text-xs md:text-sm text-muted-foreground mb-2">
+              गौ मात्र माता ही नहीं, अपितु सम्पूर्ण मनोवृत्तियों की दाता भी है।
             </p>
             <p className="text-xs md:text-sm font-semibold text-foreground">
               आप अपने या अपने माता पिता एवं अपने पूर्वजों के नाम से गौशाला में दान देकर पुण्य के भागीदार बन सकते हैं।
@@ -162,20 +177,6 @@ export function PaymentQRSection() {
             </div>
           </div>
 
-          <div className="bg-muted/50 rounded-lg p-3 md:p-4 text-center">
-            <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3">
-              After payment, please share the transaction screenshot on WhatsApp for receipt
-            </p>
-            <a
-              href="https://wa.me/919053212446"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white text-xs md:text-sm px-4 py-2 md:px-6 md:py-2 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
-            >
-              <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
-              Chat on WhatsApp
-            </a>
-          </div>
         </CardContent>
       </Card>
 

@@ -48,20 +48,31 @@ export default function DonatePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative primary-gradient text-primary-foreground py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden animate-gradient">
+      <section className="relative primary-gradient text-primary-foreground py-6 md:py-8 lg:py-12 overflow-hidden animate-gradient">
         <FloatingParticles />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15),transparent_70%)] animate-gradient" style={{ animationDelay: '1s' }}></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <ScrollAnimation direction="up" delay={0}>
-            <div className="inline-block mb-4 md:mb-6 fade-in">
-              <span className="text-4xl md:text-5xl lg:text-6xl animate-pulse">🙏</span>
+            <div className="inline-block mb-3 md:mb-4 fade-in">
+              <span className="text-3xl md:text-4xl lg:text-5xl animate-pulse">🙏</span>
             </div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold mb-4 md:mb-6 fade-in" style={{ animationDelay: '0.2s' }}>
-              Make a Donation
+            <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 md:mb-4 fade-in" style={{ animationDelay: '0.2s' }}>
+              दान करें - Make a Donation
             </h1>
-            <p className="text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl opacity-95 max-w-3xl mx-auto leading-relaxed fade-in px-2" style={{ animationDelay: '0.4s' }}>
-              Your contribution transforms lives. Every rupee makes a difference in someone's journey.
+            <p className="text-xs md:text-sm lg:text-base opacity-95 max-w-2xl mx-auto leading-relaxed fade-in px-2" style={{ animationDelay: '0.4s' }}>
+              आपका योगदान जीवन बदलता है। हर रुपया किसी की यात्रा में फर्क लाता है।
             </p>
+          </ScrollAnimation>
+        </div>
+      </section>
+
+      {/* Quick Donation - QR Code First */}
+      <section className="py-6 md:py-8 lg:py-12 bg-background">
+        <div className="container mx-auto px-4">
+          <ScrollAnimation direction="up" delay={0}>
+            <div id="payment-section" className="max-w-4xl mx-auto scroll-mt-20">
+              <PaymentQRSection />
+            </div>
           </ScrollAnimation>
         </div>
       </section>
@@ -106,17 +117,18 @@ export default function DonatePage() {
             ))}
           </div>
 
-          {/* Donation Form */}
+          {/* Donation Form - Optional for Receipt */}
           <ScrollAnimation direction="up" delay={400}>
-            <div className="max-w-4xl mx-auto mb-16">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-4 md:mb-6">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-2">
+                  Receipt के लिए Details भरें (Optional)
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground">
+                  Payment screenshot WhatsApp पर share करें | Receipt के लिए details भरें
+                </p>
+              </div>
               <DonationFormPublic />
-            </div>
-          </ScrollAnimation>
-
-          {/* Payment QR Code & Bank Details */}
-          <ScrollAnimation direction="up" delay={600}>
-            <div id="payment-section" className="max-w-4xl mx-auto scroll-mt-20">
-              <PaymentQRSection />
             </div>
           </ScrollAnimation>
         </div>

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Heart } from "lucide-react"
 import { useState } from "react"
-import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
+import { UserButton, SignedIn } from "@clerk/nextjs"
 import Image from "next/image"
 
 export function Navbar() {
@@ -24,12 +24,12 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-xl overflow-hidden shadow-xl group-hover:scale-110 transition-all duration-300 ring-2 ring-primary/30 group-hover:ring-primary/60 glow-primary-hover">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 group-hover:scale-110 transition-all duration-300">
               <Image
                 src="/logo/image.png"
                 alt="Ramanuj Sewa Foundation Logo"
                 fill
-                className="object-contain p-1 group-hover:rotate-3 transition-transform duration-300"
+                className="object-contain group-hover:rotate-3 transition-transform duration-300"
               />
             </div>
             <div className="hidden md:block">
@@ -56,23 +56,15 @@ export function Navbar() {
                 दान करें
               </Button>
             </Link>
-            {/* Authentication Section */}
-            <div className="flex items-center gap-3 ml-2 pl-4 border-l border-border">
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <Button variant="outline" size="sm">लॉग इन</Button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" size="sm">साइन अप</Button>
-                </SignUpButton>
-              </SignedOut>
+            {/* Dashboard Section - Only show if signed in */}
             <SignedIn>
-              <Link href="/dashboard">
-                <Button variant="ghost" size="sm">डैशबोर्ड</Button>
-              </Link>
-              <UserButton afterSignOutUrl="/" />
+              <div className="flex items-center gap-3 ml-2 pl-4 border-l border-border">
+                <Link href="/dashboard">
+                  <Button variant="ghost" size="sm">डैशबोर्ड</Button>
+                </Link>
+                <UserButton afterSignOutUrl="/" />
+              </div>
             </SignedIn>
-            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,28 +89,18 @@ export function Navbar() {
             <Link href="/donate" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">दान करें</Button>
             </Link>
-            {/* Mobile Authentication Section */}
-            <div className="mt-6 pt-4 border-t border-border">
-              <p className="text-xs font-semibold text-muted-foreground uppercase mb-3">खाता</p>
-              <SignedOut>
-                <div className="space-y-2">
-                  <SignInButton mode="modal">
-                    <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>लॉग इन</Button>
-                  </SignInButton>
-                  <SignUpButton mode="modal">
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => setMobileMenuOpen(false)}>साइन अप</Button>
-                  </SignUpButton>
-                </div>
-              </SignedOut>
-              <SignedIn>
+            {/* Mobile Dashboard Section - Only show if signed in */}
+            <SignedIn>
+              <div className="mt-6 pt-4 border-t border-border">
+                <p className="text-xs font-semibold text-muted-foreground uppercase mb-3">खाता</p>
                 <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full mb-2">डैशबोर्ड</Button>
                 </Link>
                 <div className="flex justify-center">
                   <UserButton afterSignOutUrl="/" />
                 </div>
-              </SignedIn>
-            </div>
+              </div>
+            </SignedIn>
           </div>
         )}
       </div>

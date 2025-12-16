@@ -15,11 +15,11 @@ import { toast } from 'sonner'
 import type { DonationType } from '@/lib/types/database'
 
 const donationSchema = z.object({
-  donation_type: z.enum(['gau-sewa', 'girl-marriage-support', 'gurukul-donation', 'health-camps', 'general']),
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-  amount: z.number().min(1, 'Amount must be greater than 0'),
+  donation_type: z.enum(['gau-sewa', 'girl-marriage-support', 'gurukul-donation', 'health-camps', 'general']).optional(),
+  name: z.string().optional(),
+  email: z.string().email('Invalid email address').optional().or(z.literal('')),
+  phone: z.string().optional(),
+  amount: z.number().optional(),
 })
 
 type DonationFormData = z.infer<typeof donationSchema>
@@ -51,13 +51,26 @@ export function DonationFormPublic() {
   const selectedType = watch('donation_type')
 
   const onSubmit = async (data: DonationFormData) => {
+    // Only submit if at least one field is filled
+    if (!data.name && !data.email && !data.phone && !data.amount) {
+      toast.info('कृपया receipt के लिए कम से कम एक field भरें')
+      return
+    }
+
     setLoading(true)
     try {
       // Create donation record
       const response = await fetch('/api/donations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          donation_type: data.donation_type || 'general',
+          name: data.name || 'Guest Donor',
+          email: data.email || '',
+          phone: data.phone || '',
+          amount: data.amount || 0,
+        }),
       })
 
       const result = await response.json()
@@ -66,15 +79,7 @@ export function DonationFormPublic() {
         throw new Error(result.error || 'Failed to create donation')
       }
 
-      toast.success('Donation details saved! Please complete payment using QR code or bank transfer below.')
-      
-      // Scroll to payment section
-      setTimeout(() => {
-        const paymentSection = document.getElementById('payment-section')
-        if (paymentSection) {
-          paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      }, 500)
+      toast.success('Details saved! Payment screenshot WhatsApp पर share करें।')
     } catch (error: any) {
       toast.error(error.message || 'Failed to save donation details')
     } finally {
@@ -83,9 +88,12 @@ export function DonationFormPublic() {
   }
 
   return (
-    <Card className="max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl text-center">Complete Your Donation</CardTitle>
+      <Card className="max-w-2xl mx-auto border-2 border-primary/20">
+      <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5">
+        <CardTitle className="text-lg md:text-xl lg:text-2xl text-center">Receipt के लिए Details भरें</CardTitle>
+        <p className="text-xs md:text-sm text-center text-muted-foreground mt-2">
+          सभी fields optional हैं - केवल receipt के लिए
+        </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -110,25 +118,25 @@ export function DonationFormPublic() {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="name">Full Name *</Label>
+              <Label htmlFor="name">Full Name (Optional)</Label>
               <Input id="name" {...register('name')} className="mt-2" placeholder="Enter your name" />
               {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>}
             </div>
             <div>
-              <Label htmlFor="email">Email Address *</Label>
+              <Label htmlFor="email">Email Address (Optional)</Label>
               <Input id="email" type="email" {...register('email')} className="mt-2" placeholder="your@email.com" />
               {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>}
             </div>
           </div>
 
           <div>
-            <Label htmlFor="phone">Phone Number *</Label>
+            <Label htmlFor="phone">Phone Number (Optional)</Label>
             <Input id="phone" type="tel" {...register('phone')} className="mt-2" placeholder="+91 XXXXXXXXXX" />
             {errors.phone && <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>}
           </div>
 
           <div>
-            <Label htmlFor="amount">Donation Amount (₹) *</Label>
+            <Label htmlFor="amount">Donation Amount (₹) (Optional)</Label>
             <Input
               id="amount"
               type="number"
@@ -158,23 +166,23 @@ export function DonationFormPublic() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-base md:text-lg px-6 py-4 md:px-8 md:py-5 h-auto shadow-lg hover:shadow-xl transition-all"
             size="lg"
           >
-            {loading ? 'Saving Details...' : (
+            {loading ? 'Saving...' : (
               <>
-                <Heart className="mr-2" size={24} fill="currentColor" />
-                Save Donation Details
+                <Heart className="mr-2" size={20} fill="currentColor" />
+                Details Save करें (Optional)
               </>
             )}
           </Button>
 
-          <div className="bg-primary/5 rounded-lg p-4 text-center border border-primary/20">
-            <p className="text-sm font-semibold text-foreground mb-2">
-              After submitting, please complete payment using QR code or bank transfer below
+          <div className="bg-green-50 dark:bg-green-950/20 rounded-lg p-3 md:p-4 text-center border-2 border-green-200 dark:border-green-800">
+            <p className="text-xs md:text-sm font-semibold text-green-800 dark:text-green-200 mb-1">
+              ✅ Payment करने के बाद screenshot WhatsApp पर share करें
             </p>
-            <p className="text-xs text-muted-foreground">
-              Share payment screenshot on WhatsApp for receipt. Sign in with the same email to view your donation history.
+            <p className="text-xs text-green-700 dark:text-green-300">
+              Receipt आपको WhatsApp और Email पर भेजा जाएगा
             </p>
           </div>
         </form>
