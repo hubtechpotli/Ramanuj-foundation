@@ -9,9 +9,19 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* About */}
           <div>
-            <h3 className="font-bold text-base md:text-lg lg:text-xl mb-3 md:mb-4 text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Ramanuj Sewa Foundation
-            </h3>
+            <div className="flex items-center gap-3 mb-3 md:mb-4">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
+                <Image
+                  src="/logo/image.png"
+                  alt="Ramanuj Sewa Foundation Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="font-bold text-base md:text-lg lg:text-xl text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Ramanuj Sewa Foundation
+              </h3>
+            </div>
             <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-3 md:mb-4">
               करुणा और सांस्कृतिक मूल्यों के माध्यम से मानवता की सेवा। वंचित परिवारों का समर्थन, शिक्षा को बढ़ावा देना, और गायों की रक्षा करना।
             </p>

@@ -103,6 +103,85 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Katha Images Auto-Scroll Section */}
+      <section className="py-4 md:py-6 lg:py-8 bg-gradient-to-b from-muted/50 to-background overflow-hidden">
+        <div className="container mx-auto px-2 md:px-4">
+          <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-center text-foreground mb-3 md:mb-4 lg:mb-6">
+            कथा आयोजन - Katha Services
+          </h2>
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div className="flex animate-scroll-horizontal gap-3 md:gap-4 lg:gap-6">
+                {/* Duplicate images for seamless loop */}
+                {[
+                  { src: "/katha-images/bhagwat-katha.jpg", title: "श्रीमद् भागवत कथा", subtitle: "Shrimad Bhagwat Katha karwane ke liye sampark kre", href: "/bhagwat-katha" },
+                  { src: "/katha-images/shri-ram-katha.jpg", title: "श्री राम कथा", subtitle: "Shri Ram Katha", href: null },
+                  { src: "/katha-images/shiv-puran.jpg", title: "शिव पुराण", subtitle: "Shiv Puran", href: null },
+                  { src: "/katha-images/khatu-shyam-katha.jpg", title: "खाटू श्याम कथा", subtitle: "Khatu Shyam Katha", href: null },
+                ].map((katha, idx) => {
+                  const content = (
+                    <div className="relative h-[140px] md:h-[200px] lg:h-[250px] xl:h-[300px] rounded-lg overflow-hidden shadow-xl border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                      <Image
+                        src={katha.src}
+                        alt={katha.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 lg:p-4">
+                        <h3 className="text-white font-bold text-xs md:text-sm lg:text-base xl:text-lg mb-0.5 md:mb-1">{katha.title}</h3>
+                        <p className="text-white/90 text-[10px] md:text-xs lg:text-sm leading-tight">{katha.subtitle}</p>
+                      </div>
+                    </div>
+                  );
+                  return (
+                    <div key={`first-${idx}`} className="flex-shrink-0 w-[200px] md:w-[280px] lg:w-[350px] xl:w-[400px] group">
+                      {katha.href ? (
+                        <Link href={katha.href}>{content}</Link>
+                      ) : (
+                        content
+                      )}
+                    </div>
+                  );
+                })}
+                {/* Duplicate for seamless loop */}
+                {[
+                  { src: "/katha-images/bhagwat-katha.jpg", title: "श्रीमद् भागवत कथा", subtitle: "Shrimad Bhagwat Katha karwane ke liye sampark kre", href: "/bhagwat-katha" },
+                  { src: "/katha-images/shri-ram-katha.jpg", title: "श्री राम कथा", subtitle: "Shri Ram Katha", href: null },
+                  { src: "/katha-images/shiv-puran.jpg", title: "शिव पुराण", subtitle: "Shiv Puran", href: null },
+                  { src: "/katha-images/khatu-shyam-katha.jpg", title: "खाटू श्याम कथा", subtitle: "Khatu Shyam Katha", href: null },
+                ].map((katha, idx) => {
+                  const content = (
+                    <div className="relative h-[140px] md:h-[200px] lg:h-[250px] xl:h-[300px] rounded-lg overflow-hidden shadow-xl border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                      <Image
+                        src={katha.src}
+                        alt={katha.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 lg:p-4">
+                        <h3 className="text-white font-bold text-xs md:text-sm lg:text-base xl:text-lg mb-0.5 md:mb-1">{katha.title}</h3>
+                        <p className="text-white/90 text-[10px] md:text-xs lg:text-sm leading-tight">{katha.subtitle}</p>
+                      </div>
+                    </div>
+                  );
+                  return (
+                    <div key={`second-${idx}`} className="flex-shrink-0 w-[200px] md:w-[280px] lg:w-[350px] xl:w-[400px] group">
+                      {katha.href ? (
+                        <Link href={katha.href}>{content}</Link>
+                      ) : (
+                        content
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Gau Sewa Section */}
       <section className="py-8 md:py-12 lg:py-20 bg-gradient-to-b from-background to-muted relative overflow-hidden">
         <FloatingParticles />
