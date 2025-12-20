@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description:
     "Serving humanity through Gau Sewa, Gurukul Education, Girls Marriage Support, and Health Camps. A charitable organization dedicated to uplifting underprivileged families.",
   generator: "v0.app",
+  verification: {
+    google: "rvwV63rr2vTmW-QL9SH_tw5JJiZsLOwB_HIZCIWcRvM",
+  },
   icons: {
     icon: [
       {
